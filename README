@@ -1,0 +1,19 @@
+# Bot Battlr
+
+## Overview
+Bot Battlr is a React application that allows users to view a collection of bots, enlist them into their army, and manage their bot army. Users can also discharge bots permanently.
+
+## Features
+- View a list of bots with detailed information.
+- Enlist a bot into your army.
+- Release a bot from your army.
+- Discharge a bot permanently.
+- (Advanced) View detailed bot specs.
+- (Advanced) Sort bots by health, damage, or armor.
+- (Advanced) Filter bots by class.
+
+## Setup
+1. **Clone the repository:**
+   ```bash
+   git clone <your-repository-url>
+   cd bot-battlr
