@@ -1,13 +1,13 @@
-const API_URL = 'http://localhost:8001/bots';
-
 export const fetchBots = async () => {
-  const response = await fetch(API_URL);
-  const data = await response.json();
-  return data;
-};
-
-export const deleteBot = async (id) => {
-  await fetch(`${API_URL}/${id}`, {
-    method: 'DELETE',
-  });
+  try {
+    const response = await fetch('http://localhost:8001/bots');
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Failed to fetch bots:', error);
+    return [];
+  }
 };

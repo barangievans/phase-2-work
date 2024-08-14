@@ -1,38 +1,34 @@
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-function BotSpecs() {
-  const { id } = useParams();  // Extract id from URL parameters
-  const [botData, setBotData] = useState(null);
-
-  useEffect(() => {
-    fetch(`http://localhost:8001/bots/${id}`)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
-      .then(data => setBotData(data))
-      .catch(error => console.error('Fetch error:', error));
-  }, [id]);  // Dependency on id
-
-  if (!botData) return <p>Loading...</p>;
-
+function BotSpecs({ bot, onEnlist, onGoBack }) {
   return (
-    <div>
-      <img src={botData.avatar_url} alt={botData.name} />
-      <h3>{botData.name}</h3>
-      <p>Health: {botData.health}</p>
-      <p>Damage: {botData.damage}</p>
-      <p>Armor: {botData.armor}</p>
-      <p>Class: {botData.bot_class}</p>
-      <p>Catchphrase: {botData.catchphrase}</p>
-      <button onClick={() => {/* Enlist bot logic */}}>Enlist</button>
+    <div className="bot-specs">
+      <h2>{bot.name} Specifications</h2>
+      <img src={bot.avatar_url} alt={bot.name} />
+      <p>Health: {bot.health}</p>
+      <p>Damage: {bot.damage}</p>
+      <p>Armor: {bot.armor}</p>
+      <p>Class: {bot.bot_class}</p>
+      <p>Catchphrase: {bot.catchphrase}</p>
+      <button onClick={onEnlist}>Enlist</button>
+      <button onClick={onGoBack}>Go Back</button>
     </div>
   );
 }
 
+BotSpecs.propTypes = {
+  bot: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    avatar_url: PropTypes.string.isRequired,
+    health: PropTypes.number.isRequired,
+    damage: PropTypes.number.isRequired,
+    armor: PropTypes.number.isRequired,
+    bot_class: PropTypes.string.isRequired,
+    catchphrase: PropTypes.string.isRequired,
+  }).isRequired,
+  onEnlist: PropTypes.func.isRequired,
+  onGoBack: PropTypes.func.isRequired,
+};
+
 export default BotSpecs;
-
-
